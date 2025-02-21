@@ -3,8 +3,6 @@ package com.aula.projeto.user;
 import java.util.UUID;
 
 
-import jakarta.annotation.Nonnull;
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.Data;

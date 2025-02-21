@@ -6,6 +6,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IUserRespositoy extends JpaRepository<UserModel, UUID> {
 
-    UserModel finUserModel(String username);
+
     
 }
