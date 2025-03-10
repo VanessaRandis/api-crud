@@ -4,7 +4,7 @@ package com.aula.projeto.user;
 import jakarta.servlet.http.HttpServletRequest;
 
 import java.util.List;
-import java.util.Optional;
+
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,13 +42,15 @@ public class UserController {
     }*/
 
     @PostMapping("/novo")
-    private ResponseEntity criarUusario(@RequestBody UserModel userModel, HttpServletRequest request){
-        var usuarioExiste = this.userRespositoy.findByNome(userModel.getNome());
+    private ResponseEntity criarUsuario(@RequestBody UserModel userModel, HttpServletRequest request){
+        var usuarioExiste = this.userRespositoy.findByUsername(userModel.getUsername());
         if(usuarioExiste != null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("usuario cadastrado");
 
         }else {
-            System.out.println("TESTE O SISTEMA CHEGOU AQUI");
+           var senhaHash = BCrypt.withDefaults()
+                .hashToString(12, userModel.getSenha().toCharArray());
+            userModel.setSenha(senhaHash);
             var criado = this.userRespositoy.save(userModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(criado);
         }
@@ -60,7 +63,7 @@ public class UserController {
         return usuariocad;
     }
 
-    @PutMapping("/atualizauser")
+    @PutMapping("/atualiza")
     public ResponseEntity atualizaUser(@RequestBody UserModel userModel) {   
         var criado = this.userRespositoy.save(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(criado);

@@ -6,7 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 
 
+
+
 public interface ICursoController extends JpaRepository<CursoModel, UUID> {
+
+    CursoModel findByNomeCurso(String nomeCurso);
 
  
 

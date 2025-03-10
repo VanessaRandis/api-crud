@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface IUserRespositoy extends JpaRepository<UserModel, UUID> {
 
-    UserModel findByNome(String nome);
+    UserModel findByUsername(String username);
 
 
     

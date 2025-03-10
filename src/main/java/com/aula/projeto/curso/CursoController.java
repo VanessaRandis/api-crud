@@ -3,7 +3,7 @@ package com.aula.projeto.curso;
 import java.util.List;
 import java.util.UUID;
 
-import org.apache.catalina.connector.Response;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,10 +31,13 @@ public class CursoController {
 
     @PostMapping("/criar")
     public ResponseEntity createCurso(@RequestBody CursoModel cursoModel, HttpServletRequest request){
-        var cadastro = this.cursoController.save(cursoModel);
-        System.out.println(cadastro.getNomeCurso() + cadastro.getQuantidadeSemestre() + cadastro.getQuantidadeSemestre());
-        return ResponseEntity.status(HttpStatus.CREATED).body(cadastro);
-
+        var cursoExistente = this.cursoController.findByNomeCurso(cursoModel.getNomeCurso());
+        if(cursoExistente != null){
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("curso ja cadastrado");
+        }else {
+            var cadastro = this.cursoController.save(cursoModel);
+            return ResponseEntity.status(HttpStatus.CREATED).body(cadastro);
+        }
     }
 
     @GetMapping("/cursoscadastrados")
@@ -44,7 +47,7 @@ public class CursoController {
     }
     
 
-    @DeleteMapping("/deletacurso/{}")
+    @DeleteMapping("/deletacurso/{id}")
     public void deletaCurso(@PathVariable UUID id){
         cursoController.deleteById(id);
 
@@ -56,9 +59,5 @@ public class CursoController {
         return ResponseEntity.status(HttpStatus.ACCEPTED).body(atCurso);
     }
 
-
-    /* if(cadastro!= null)
-     * 
-     */
 
 }
