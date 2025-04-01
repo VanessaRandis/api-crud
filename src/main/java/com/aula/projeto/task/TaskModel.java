@@ -1,4 +1,4 @@
-package com.aula.projeto.Task;
+package com.aula.projeto.task;
 
 import java.time.LocalDateTime;
 import java.util.UUID;

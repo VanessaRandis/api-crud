@@ -1,4 +1,4 @@
-package com.aula.projeto.Task;
+package com.aula.projeto.task;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
