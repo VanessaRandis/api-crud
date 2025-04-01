@@ -1,4 +1,4 @@
-Hello, I hope find you well!
+Hello!
 Following some information about my project. Enjoy it!
 
 This is simple work to practice.

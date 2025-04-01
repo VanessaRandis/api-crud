@@ -1,4 +1,4 @@
-package com;
+package com.aula.projeto;
 
 
 import org.springframework.boot.SpringApplication;

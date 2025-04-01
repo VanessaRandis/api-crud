@@ -31,10 +31,14 @@ public class CursoController {
 
     @PostMapping("/criar")
     public ResponseEntity createCurso(@RequestBody CursoModel cursoModel, HttpServletRequest request){
+
         var cursoExistente = this.cursoController.findByNomeCurso(cursoModel.getNomeCurso());
         if(cursoExistente != null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("curso ja cadastrado");
         }else {
+            System.out.println("CHEGOU NO CONTROLER" + request.getAttribute("idUser"));// VERIFICA SE CHEGA A INFORMAÇÃO
+            var idUser = request.getAttribute("idUser");// coloca em uma variavel o valor setado do idUser que esta no cursoModel
+            cursoModel.setIdUser((UUID) idUser); // aqui faz um casting para que o dado seja UUID
             var cadastro = this.cursoController.save(cursoModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(cadastro);
         }
