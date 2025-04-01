@@ -11,7 +11,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
 import lombok.Data;
 
-@Data
+
 @Entity(name = "tb_tarefa")
 public class TaskModel {
 
@@ -31,5 +31,68 @@ public class TaskModel {
 
     private UUID idUser;
 
-    
+
+    public UUID getId() {
+        return id;
+    }
+
+    public void setId(UUID id) {
+        this.id = id;
+    }
+
+    public String getTitleTask() {
+        return titleTask;
+    }
+
+    public void setTitleTask(String titleTask) {
+        this.titleTask = titleTask;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public LocalDateTime getStartAt() {
+        return startAt;
+    }
+
+    public void setStartAt(LocalDateTime startAt) {
+        this.startAt = startAt;
+    }
+
+    public LocalDateTime getEndAt() {
+        return endAt;
+    }
+
+    public void setEndAt(LocalDateTime endAt) {
+        this.endAt = endAt;
+    }
+
+    public String getPriority() {
+        return priority;
+    }
+
+    public void setPriority(String priority) {
+        this.priority = priority;
+    }
+
+    public LocalDateTime getCreatAt() {
+        return creatAt;
+    }
+
+    public void setCreatAt(LocalDateTime creatAt) {
+        this.creatAt = creatAt;
+    }
+
+    public UUID getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(UUID idUser) {
+        this.idUser = idUser;
+    }
 }

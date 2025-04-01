@@ -27,7 +27,7 @@ public class FilterAuth extends OncePerRequestFilter{
             throws ServletException, IOException {
 
             var serveletPath = request.getServletPath();
-            if(serveletPath.equals("/curso/criar")){
+            if(serveletPath.equals("/curso/criar") || serveletPath.equals("/tarefa/nova")){
                         var authorization = request.getHeader("Authorization");
                         var authEncode = authorization.substring("Basic".length()).trim();
                         byte [] authDecode = Base64.getDecoder().decode(authEncode);
