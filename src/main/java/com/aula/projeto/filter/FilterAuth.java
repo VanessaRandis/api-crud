@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.Base64;
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
-import com.aula.projeto.user.IUserRespositoy;
+import com.aula.projeto.user.IUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -20,7 +20,7 @@ import jakarta.servlet.http.HttpServletResponse;
 public class FilterAuth extends OncePerRequestFilter{
 
     @Autowired
-    IUserRespositoy userRepository;
+    IUserRepository userRepository;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -62,6 +62,8 @@ public class FilterAuth extends OncePerRequestFilter{
                     } else {
                         filterChain.doFilter(request, response);
                     }
+
     }
+
 }
 

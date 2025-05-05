@@ -10,7 +10,7 @@ import java.util.UUID;
 
 
 
-
+@Data
 @Entity(name = "tb_curso")
 public class CursoModel {
 
@@ -23,35 +23,5 @@ public class CursoModel {
 
     private UUID idUser;
 
-    public UUID getIdcurso() {
-        return idcurso;
-    }
 
-    public void setIdcurso(UUID idcurso) {
-        this.idcurso = idcurso;
-    }
-
-    public String getNomeCurso() {
-        return nomeCurso;
-    }
-
-    public void setNomeCurso(String nomeCurso) {
-        this.nomeCurso = nomeCurso;
-    }
-
-    public int getQuantidadeSemestre() {
-        return quantidadeSemestre;
-    }
-
-    public void setQuantidadeSemestre(int quantidadeSemestre) {
-        this.quantidadeSemestre = quantidadeSemestre;
-    }
-
-    public UUID getIdUser() {
-        return idUser;
-    }
-
-    public void setIdUser(UUID idUser) {
-        this.idUser = idUser;
-    }
 }

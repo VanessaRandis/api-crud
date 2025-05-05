@@ -7,6 +7,7 @@ import java.util.List;
 
 import java.util.UUID;
 
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
 
     @Autowired
-    private IUserRespositoy userRespositoy;
+    private IUserRepository userRespository;
 
   /*   @PostMapping("/novo")
     private UserModel criar(@RequestBody UserModel userModel, HttpServletRequest request){
@@ -41,9 +42,9 @@ public class UserController {
 
     }*/
 
-    @PostMapping("/novo")
-    private ResponseEntity criarUsuario(@RequestBody UserModel userModel, HttpServletRequest request){
-        var usuarioExiste = this.userRespositoy.findByUsername(userModel.getUsername());
+    @PostMapping( "/novo")
+    private ResponseEntity criarUsuario(@Valid @RequestBody UserModel userModel, HttpServletRequest request){
+        var usuarioExiste = this.userRespository.findByUsername(userModel.getUsername());
         if(usuarioExiste != null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("usuario cadastrado");
 
@@ -51,7 +52,7 @@ public class UserController {
            var senhaHash = BCrypt.withDefaults()
                 .hashToString(12, userModel.getSenha().toCharArray());
             userModel.setSenha(senhaHash);
-            var criado = this.userRespositoy.save(userModel);
+            var criado = this.userRespository.save(userModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(criado);
         }
 
@@ -59,19 +60,19 @@ public class UserController {
 
     @GetMapping("/usercadastrados")
     public List<UserModel> listarCursos() {
-        List<UserModel> usuariocad = userRespositoy.findAll();
+        List<UserModel> usuariocad = userRespository.findAll();
         return usuariocad;
     }
 
     @PutMapping("/atualiza")
     public ResponseEntity atualizaUser(@RequestBody UserModel userModel) {   
-        var criado = this.userRespositoy.save(userModel);
+        var criado = this.userRespository.save(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(criado);
     }
 
     @DeleteMapping("/deletauser/{id}")
     public void deletaUser(@PathVariable UUID id){
-        userRespositoy.deleteById(id);
+        userRespository.deleteById(id);
         
     
     }
