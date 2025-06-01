@@ -24,7 +24,6 @@ public class UserModel {
     @Id
     @GeneratedValue(generator = "UUID")
     private UUID id;
-    git a
     private String nome;
     private String cpf;
 
