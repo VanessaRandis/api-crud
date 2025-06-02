@@ -1,10 +1,37 @@
 <!DOCTYPE html>
 <html lang="en">
+<html xmlns:th="//www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="css/style.css">
+
+    <title>Cadastro</title>
 </head>
 <body>
-$END$
+    <form method="POST" action="/user/novo" th:object="${userModel}">
+             <input type="hidden" th:value="${userModel.id}" name="id" />
+
+            <label for="name">Nome</label>
+            <input type="text" class="form-control" name="nome" th:value="${userModel.nome}">
+            <label for="email" class="form-label">email</label>
+            <input type="email" class="form-control" name="email" th:value="${{userModel.email}}">
+            <label for="cpf" class="form-label">cpf</label>
+            <input type="text" class="form-control" name="cpf" th:value="${{userModel.cpf}}">
+            <label for="username" class="form-label">Username</label>
+            <input type="text" class="form-control" name="username" th:value="${userModel.username}">
+            <label for="telefone" class="form-label">Telefone</label>
+            <input type="text" class="form-control" name="telefone" th:value="${{userModel.telefone}}">
+            <label for="senha" class="form-label">Senha</label>
+            <input type="password" class="form-control" name="senha" th:value="${{userModel.senha}}">
+
+
+        <button type="submit" class="btn btn-primary">Cadastrar</button>
+    </form>
+
 </body>
 </html>

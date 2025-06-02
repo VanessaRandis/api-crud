@@ -23,8 +23,7 @@ import at.favre.lib.crypto.bcrypt.BCrypt;
 
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-
-
+import org.springframework.web.servlet.ModelAndView;
 
 
 @RestController
@@ -32,7 +31,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
 
     @Autowired
-    private IUserRepository userRespository;
+    private IUserRepository userRepository;
 
   /*   @PostMapping("/novo")
     private UserModel criar(@RequestBody UserModel userModel, HttpServletRequest request){
@@ -42,9 +41,17 @@ public class UserController {
 
     }*/
 
+    @GetMapping("novo")
+    private ModelAndView criarUsuario() {
+        ModelAndView mv = new ModelAndView("createuser");
+        mv.addObject("userModel", new UserModel());
+        return mv;
+
+    }
+
     @PostMapping( "/novo")
-    private ResponseEntity criarUsuario(@Valid @RequestBody UserModel userModel, HttpServletRequest request){
-        var usuarioExiste = this.userRespository.findByUsername(userModel.getUsername());
+    private ResponseEntity criarUsuario(@Valid UserModel userModel, HttpServletRequest request){
+        var usuarioExiste = this.userRepository.findByUsername(userModel.getUsername());
         if(usuarioExiste != null){
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("usuario cadastrado");
 
@@ -52,7 +59,7 @@ public class UserController {
            var senhaHash = BCrypt.withDefaults()
                 .hashToString(12, userModel.getSenha().toCharArray());
             userModel.setSenha(senhaHash);
-            var criado = this.userRespository.save(userModel);
+            var criado = this.userRepository.save(userModel);
             return ResponseEntity.status(HttpStatus.CREATED).body(criado);
         }
 
@@ -60,22 +67,25 @@ public class UserController {
 
     @GetMapping("/usercadastrados")
     public List<UserModel> listarCursos() {
-        List<UserModel> usuariocad = userRespository.findAll();
+        List<UserModel> usuariocad = userRepository.findAll();
         return usuariocad;
     }
 
     @PutMapping("/atualiza")
     public ResponseEntity atualizaUser(@RequestBody UserModel userModel) {   
-        var criado = this.userRespository.save(userModel);
+        var criado = this.userRepository.save(userModel);
         return ResponseEntity.status(HttpStatus.CREATED).body(criado);
     }
 
     @DeleteMapping("/deletauser/{id}")
     public void deletaUser(@PathVariable UUID id){
-        userRespository.deleteById(id);
+        userRepository.deleteById(id);
         
     
     }
+
+
+
 
     // Esta funcionando, agora deve ser aplicado a lógica para caso exista o usuário para que não deixe inserir novamente.
     // Deve ser verificado o username || nome
