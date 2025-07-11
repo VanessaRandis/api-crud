@@ -9,15 +9,17 @@ import java.util.UUID;
 
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.security.SecurityProperties;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 import at.favre.lib.crypto.bcrypt.BCrypt;
 
@@ -26,7 +28,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 
 
-@RestController
+@Controller
 @RequestMapping("/user")
 public class UserController {
 
@@ -48,6 +50,7 @@ public class UserController {
         return mv;
 
     }
+
 
     @PostMapping( "/novo")
     private ResponseEntity criarUsuario(@Valid UserModel userModel, HttpServletRequest request){
@@ -71,11 +74,41 @@ public class UserController {
         return usuariocad;
     }
 
-    @PutMapping("/atualiza")
-    public ResponseEntity atualizaUser(@RequestBody UserModel userModel) {   
-        var criado = this.userRepository.save(userModel);
-        return ResponseEntity.status(HttpStatus.CREATED).body(criado);
+    @PostMapping("/atualiza")
+    public void atualizaUser( UserModel userModel, UUID id ) {
+        System.out.println("cheguei aqui");
+        var usuario = this.userRepository.findById(id);
+
+        var usuario1 = this.userRepository.save(userModel);
+        System.out.println("cheguei aqui FINAL CONTROLLER POST ATULIZA");
+
+
     }
+
+
+//    @GetMapping("/atualiza")
+//    public ModelAndView atualizaUser( String username) {
+//        ModelAndView mdat = new ModelAndView("update");
+//        mdat.addObject("userModel", userRepository.findByUsername(username));
+//        return mdat;
+//    }
+
+
+
+    @GetMapping("/atualiza")
+    private ModelAndView atualizaUser() {
+        ModelAndView mdat = new ModelAndView("update");
+        mdat.addObject("userModel", new UserModel());
+        return mdat;
+
+    }
+
+    @GetMapping("/home")
+    public String selection(){
+        return "home";
+    }
+
+
 
     @DeleteMapping("/deletauser/{id}")
     public void deletaUser(@PathVariable UUID id){
