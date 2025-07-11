@@ -1,10 +1,46 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+<html xmlns:th="//www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>$Title$</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualiza Dados</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
-$END$
+    <header>
+        <h1>Atualizar dados:</h1>
+    </header>
+    <main>
+
+        <form action="/user/atualiza" method="POST" th:object="${userModel}">
+            <div>
+                <label for="iduser">ID:</label>
+                <input type="text" id="iduser" name="idUser" th:value="${userModel.id}">
+            </div>
+            <div>
+                <label for="name">Nome:</label>
+                <input type="text" id="name" name="nome" th:value="${userModel.nome}">
+            </div>
+            <div>
+                <label for="email" class="form-label">Email:</label>
+                <input type="email" id="email" name="email" th:value="${{userModel.email}}">
+            </div>
+            <div>
+                <button type="submit" class="btn btn-primary">Atualiza</button>
+            </div>
+
+        </form>
+    </main>
+    <footer>
+        <p>Vanessa Randis</p>
+    </footer>
+
+
+
+
+
+    <script src="script-update.js"></script>
+
 </body>
 </html>

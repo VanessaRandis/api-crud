@@ -1,10 +1,28 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
+<html xmlns:th="//www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HOME</title>
+    <link rel="stylesheet" th:href="@{/style.css}">
 </head>
 <body>
+    <header>
+        <h1>Selecione uma opção abaixo para dar continuidade:</h1>
+    </header>
 
+    <nav>
+        <a th:href="@{/user/novo}">Cadastrar Usuário</a>
+        <a th:href="@{/user/atualiza}">Atualizar Usuário</a>
+        <a th:href="@{/user/deleta}">Deleta Usuário</a>
+        <a th:href="@{/user/deleta}">Busca Usuário</a>
+    </nav>
+    <footer>
+        <p>Vanessa Randis</p>
+    </footer>
+
+
+    <script src="/js/script-home.js"></script>
 </body>
 </html>
